@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+
+  spa:
+    container_name: spa
+    build:
+      context: ./Front
+      dockerfile: ./Dockerfile
+    volumes:
+      - './Front:/app'
+      - './Front/app/node_modules'
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=development
+      
+  servico:
+    container_name: servico
+    build:
+      context: ./Api
+      dockerfile: ./CopaFilmes.WebApi/Dockerfile    
+    ports:
+      - '44339:443'
+      - '9090:80'
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      
+  teste:
+    container_name: teste
+    build:
+      context: ./Api
+      dockerfile: ./CopaFilmes.Test/Dockerfile    
+    

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CopaFilmes.Test": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
